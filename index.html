@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ChainSettle — Decentralized Settlement & Collateral Management Platform. Replacing five financial intermediaries with a single permissioned blockchain.">
+<meta property="og:title" content="ChainSettle — Decentralized Settlement Platform">
+<meta property="og:description" content="T+0 settlement. Real-time collateral. No reconciliation. Seeking $3.5M seed.">
+<meta property="og:type" content="website">
+<title>ChainSettle — Decentralized Settlement Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg:         #07101A;
+  --surface:    #0C1A27;
+  --card:       #0F2035;
+  --border:     #1C3048;
+  --border2:    #243C55;
+  --teal:       #00C9A0;
+  --teal2:      #009E7F;
+  --teal-dim:   #002E24;
+  --teal-glow:  rgba(0,201,160,0.12);
+  --muted:      #3A6070;
+  --text:       #E2F0ED;
+  --dim:        #1A3040;
+  --gold:       #F0A050;
+  --gold-dim:   #2A1800;
+  --serif:      'Instrument Serif', Georgia, serif;
+  --mono:       'Geist Mono', 'Fira Code', monospace;
+  --sans:       'Geist', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── GRID TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,201,160,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,201,160,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── LAYOUT ── */
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px;
+  background: rgba(7,16,26,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.nav-inner {
+  max-width: 980px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; gap: 32px; width: 100%;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 15px; font-weight: 500;
+  color: var(--teal); letter-spacing: 1px; text-decoration: none;
+}
+.nav-logo-hex {
+  width: 26px; height: 26px; background: var(--teal);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-hex svg { width: 13px; height: 13px; fill: var(--bg); }
+.nav-links { display: flex; gap: 28px; margin-left: auto; }
+.nav-links a {
+  font-size: 13px; font-weight: 400; color: var(--muted);
+  text-decoration: none; letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-cta {
+  padding: 7px 18px;
+  border: 1px solid var(--teal2);
+  color: var(--teal) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--teal-dim) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 0 80px;
+  position: relative;
+}
+.hero-glow {
+  position: absolute;
+  top: 20%; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(0,201,160,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 28px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1.1;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+.hero h1 em { color: var(--teal); font-style: italic; }
+.hero-sub {
+  font-size: 17px; font-weight: 300;
+  color: #6A8C9A;
+  max-width: 580px;
+  line-height: 1.75;
+  margin-bottom: 44px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  padding: 12px 28px;
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  letter-spacing: 0.5px; cursor: pointer; text-decoration: none;
+  display: inline-block; transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--teal); color: var(--bg); border: none;
+}
+.btn-primary:hover { background: var(--teal2); }
+.btn-outline {
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border2);
+}
+.btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ── TICKER ── */
+.ticker-wrap {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--surface);
+  padding: 14px 0;
+}
+.ticker {
+  display: flex; gap: 64px;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-item {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 400;
+  color: var(--muted); flex-shrink: 0;
+}
+.ticker-val { color: var(--teal); font-weight: 500; }
+.ticker-sep { color: var(--border2); }
+
+/* ── STATS ── */
+.stats-section { padding: 80px 0; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+}
+.stat-box {
+  padding: 32px 28px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.stat-box:last-child { border-right: none; }
+.stat-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.stat-box:hover::before { transform: scaleX(1); }
+.stat-num {
+  font-family: var(--mono);
+  font-size: 38px; font-weight: 300;
+  color: var(--teal);
+  line-height: 1; margin-bottom: 8px;
+}
+.stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.5px; }
+.stat-sub { font-size: 11px; color: var(--border2); margin-top: 4px; }
+
+/* ── SECTION COMMON ── */
+section { padding: 80px 0; }
+.section-tag {
+  font-family: var(--mono); font-size: 10px; font-weight: 400;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-tag::after {
+  content: '';
+  flex: 1; max-width: 60px; height: 1px; background: var(--teal2);
+}
+.section-h {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400; line-height: 1.2;
+  color: var(--text); margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 15px; color: #5A7A88;
+  max-width: 520px; line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* ── PROBLEM ── */
+.problem-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--border); border: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.problem-side {
+  background: var(--surface); padding: 32px;
+  position: relative;
+}
+.problem-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; margin-bottom: 20px; display: inline-block;
+}
+.problem-label.bad { color: #C04040; background: rgba(192,64,64,0.1); border: 1px solid rgba(192,64,64,0.25); }
+.problem-label.good { color: var(--teal); background: var(--teal-dim); border: 1px solid var(--teal2); }
+.chain {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 6px; margin-bottom: 16px;
+}
+.chain-node {
+  font-family: var(--mono); font-size: 11px;
+  padding: 5px 12px;
+  border: 1px solid var(--border2);
+  color: #5A7A88;
+  background: var(--card);
+}
+.chain-arrow { color: var(--muted); font-size: 12px; }
+.outcome {
+  margin-top: 16px; padding: 12px 16px;
+  font-family: var(--mono); font-size: 12px;
+  border-left: 2px solid;
+}
+.outcome.bad { border-color: #804040; color: #C06060; background: rgba(128,64,64,0.08); }
+.outcome.good { border-color: var(--teal2); color: var(--teal); background: var(--teal-glow); }
+
+/* ── SOLUTION FEATURES ── */
+.features-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+}
+.feature {
+  background: var(--surface); padding: 32px;
+  transition: background 0.2s;
+}
+.feature:hover { background: var(--card); }
+.feature-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  color: var(--teal2); letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+.feature-title {
+  font-family: var(--serif); font-size: 20px;
+  color: var(--text); margin-bottom: 10px;
+  font-weight: 400;
+}
+.feature-body {
+  font-size: 14px; color: #4A6A78;
+  line-height: 1.7;
+}
+.feature-detail {
+  margin-top: 16px; padding: 12px 14px;
+  background: var(--dim);
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); line-height: 1.6;
+}
+
+/* ── ARCHITECTURE ── */
+.arch-layers { margin: 48px 0; }
+.arch-layer {
+  display: flex; align-items: center;
+  margin-bottom: 4px;
+  position: relative;
+}
+.arch-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  width: 180px; flex-shrink: 0;
+  color: var(--muted);
+}
+.arch-bar {
+  flex: 1; padding: 11px 18px;
+  font-size: 12.5px; font-weight: 300;
+  color: var(--text);
+  border-left: 2px solid;
+  transition: all 0.2s;
+}
+.arch-bar:hover { filter: brightness(1.15); }
+.l1 .arch-bar { background: #0A2030; border-color: var(--teal); }
+.l2 .arch-bar { background: #08192A; border-color: #007A64; }
+.l3 .arch-bar { background: #061422; border-color: #005A4A; }
+.l4 .arch-bar { background: #04101C; border-color: #003D32; }
+.l5 .arch-bar { background: #020C16; border-color: #002820; }
+.arch-tag {
+  font-family: var(--mono); font-size: 10px;
+  padding: 2px 8px; margin-left: 12px; flex-shrink: 0;
+  border: 1px solid var(--border); color: var(--muted);
+}
+
+/* ── ROADMAP ── */
+.roadmap { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 48px 0; }
+.roadmap-phase {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 24px 20px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.roadmap-phase:hover { border-color: var(--border2); }
+.roadmap-phase.active {
+  border-color: var(--teal2);
+  background: var(--card);
+}
+.roadmap-phase.active::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--teal);
+}
+.phase-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.roadmap-phase.active .phase-num { color: var(--teal); }
+.phase-title {
+  font-family: var(--serif); font-size: 17px;
+  color: var(--text); margin-bottom: 10px;
+  line-height: 1.3; font-weight: 400;
+}
+.phase-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.phase-badge {
+  display: inline-block; margin-top: 14px;
+  padding: 3px 10px; font-family: var(--mono);
+  font-size: 9px; font-weight: 500; letter-spacing: 1px;
+  background: var(--teal); color: var(--bg);
+}
+
+/* ── FINANCIALS ── */
+.fin-wrap { display: grid; grid-template-columns: 3fr 2fr; gap: 24px; }
+.fin-table-wrap { overflow-x: auto; }
+.fin-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+.fin-table th {
+  text-align: left; padding: 10px 14px;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border2);
+  background: var(--surface);
+}
+.fin-table th:not(:first-child) { text-align: right; }
+.fin-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--dim);
+  font-weight: 300;
+}
+.fin-table td:not(:first-child) {
+  text-align: right; font-family: var(--mono); font-size: 12px;
+}
+.fin-table tr.head-row td {
+  background: var(--surface);
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--teal2); padding: 7px 14px;
+}
+.fin-table tr.total-row td {
+  font-weight: 500; border-top: 1px solid var(--border2);
+  border-bottom: 2px solid var(--border);
+}
+.fin-table tr.ebitda-row td {
+  font-weight: 500; font-family: var(--mono);
+  background: var(--card);
+  font-size: 13px;
+}
+.pos { color: var(--teal); }
+.neg { color: #906060; }
+.fin-aside { display: flex; flex-direction: column; gap: 14px; }
+.fin-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 20px; flex: 1;
+}
+.fin-card-label {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: 14px;
+}
+.fin-metric { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--dim); font-size: 12.5px; }
+.fin-metric:last-child { border: none; }
+.fin-metric-label { color: var(--muted); }
+.fin-metric-val { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); }
+
+/* ── FUNDING ROUNDS ── */
+.rounds-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 48px 0; }
+.round-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 28px 24px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.round-card:hover { border-color: var(--border2); }
+.round-card.now { border-color: var(--teal2); }
+.round-card.now::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--teal);
+}
+.round-tag {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.round-card.now .round-tag { color: var(--teal); }
+.round-amount {
+  font-family: var(--serif); font-size: 34px;
+  color: var(--text); margin-bottom: 4px; line-height: 1;
+}
+.round-timing {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--muted); margin-bottom: 18px;
+}
+.round-list { list-style: none; padding: 0; }
+.round-list li {
+  font-size: 12.5px; color: var(--muted);
+  padding: 5px 0; border-bottom: 1px solid var(--dim);
+  padding-left: 14px; position: relative; line-height: 1.5;
+}
+.round-list li:last-child { border: none; }
+.round-list li::before { content: '›'; position: absolute; left: 0; color: var(--teal2); }
+.round-unlock {
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px; color: var(--teal);
+  font-family: var(--mono);
+}
+
+/* ── SCREENSHOTS ── */
+.screenshots { padding: 80px 0; }
+.screens-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.screen-item {
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.2s;
+  position: relative;
+}
+.screen-item:hover { border-color: var(--teal2); }
+.screen-img {
+  width: 100%; display: block;
+  filter: brightness(0.9);
+  transition: filter 0.3s;
+}
+.screen-item:hover .screen-img { filter: brightness(1); }
+.screen-caption {
+  padding: 14px 16px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.screen-caption-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.screen-caption-sub { font-size: 11.5px; color: var(--muted); }
+
+/* ── ASK ── */
+.ask-section { padding: 80px 0; }
+.ask-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 48px 0; }
+.ask-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+.ask-card:hover { border-color: var(--teal2); }
+.ask-card-label {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: 10px;
+}
+.ask-card-title { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+.ask-card-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ── CONTACT ── */
+.contact-section {
+  border-top: 1px solid var(--border);
+  padding: 80px 0;
+  text-align: center;
+}
+.contact-h {
+  font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400; color: var(--text);
+  margin-bottom: 16px; line-height: 1.2;
+}
+.contact-sub { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.7; }
+.contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.contact-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  font-size: 13px; font-weight: 400;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: var(--mono);
+}
+.contact-chip:hover { border-color: var(--teal); color: var(--teal); }
+.contact-chip svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  background: var(--surface);
+}
+.footer-inner {
+  max-width: 980px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-left { font-size: 12px; color: var(--muted); }
+.footer-right { font-size: 11.5px; color: #2A4050; font-family: var(--mono); }
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-box { border-right: none; border-bottom: 1px solid var(--border); }
+  .problem-grid, .features-grid, .fin-wrap, .rounds-grid, .screens-grid, .ask-grid { grid-template-columns: 1fr; }
+  .roadmap { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-hex">
+        <svg viewBox="0 0 13 13"><polygon points="6.5,1 12,3.8 12,9.2 6.5,12 1,9.2 1,3.8"/></svg>
+      </div>
+      CHAINSETTLE
+    </a>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#financials">Financials</a>
+      <a href="#funding">Funding</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      Phase I MVP &nbsp;·&nbsp; Seeking $3.5M Seed
+    </div>
+    <h1>
+      Settlement infrastructure<br>
+      for the <em>next generation</em><br>
+      of capital markets.
+    </h1>
+    <p class="hero-sub">
+      We replace five financial intermediaries with a single permissioned blockchain —
+      delivering T+0 settlement, real-time collateral management, and cryptographic
+      audit trails for institutional markets.
+    </p>
+    <div class="hero-actions">
+      <a href="#problem" class="btn btn-primary">Explore the platform</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><span>Settlement Speed</span><span class="ticker-val">T+0</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>vs. Industry Standard</span><span class="ticker-val">T+2</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Collateral Freed</span><span class="ticker-val">~40%</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Annual TAM</span><span class="ticker-val">$50B+</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Ops Cost: Reconciliation</span><span class="ticker-val">~80%</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Year 3 ARR Target</span><span class="ticker-val">$12.5M</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Avg Settlement Time</span><span class="ticker-val">~4 sec</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Seed Round</span><span class="ticker-val">$3.5M</span></div>
+    <div class="ticker-sep">·</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span>Settlement Speed</span><span class="ticker-val">T+0</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>vs. Industry Standard</span><span class="ticker-val">T+2</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Collateral Freed</span><span class="ticker-val">~40%</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Annual TAM</span><span class="ticker-val">$50B+</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Ops Cost: Reconciliation</span><span class="ticker-val">~80%</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Year 3 ARR Target</span><span class="ticker-val">$12.5M</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Avg Settlement Time</span><span class="ticker-val">~4 sec</span></div>
+    <div class="ticker-sep">·</div>
+    <div class="ticker-item"><span>Seed Round</span><span class="ticker-val">$3.5M</span></div>
+    <div class="ticker-sep">·</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="wrap">
+    <div class="stats-grid fade-up">
+      <div class="stat-box">
+        <div class="stat-num">T+0</div>
+        <div class="stat-label">Settlement speed</div>
+        <div class="stat-sub">Seconds, not business days</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">~40%</div>
+        <div class="stat-label">Collateral freed</div>
+        <div class="stat-sub">Working capital unlocked</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">$50B+</div>
+        <div class="stat-label">Annual TAM</div>
+        <div class="stat-sub">Clearing &amp; settlement fees</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">&gt;80%</div>
+        <div class="stat-label">Ops cost savings</div>
+        <div class="stat-sub">On reconciliation overhead</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-tag">The problem</div>
+    <h2 class="section-h">Finance is a fragmented<br>database problem.</h2>
+    <p class="section-sub">Every participant runs its own ledger. Trillions sit frozen for 48 hours. Most of what operations teams do is reconcile identical records held separately.</p>
+    <div class="problem-grid fade-up">
+      <div class="problem-side">
+        <div class="problem-label bad">Today — 5 intermediaries</div>
+        <div class="chain">
+          <span class="chain-node">Brokerage</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node">Clearinghouse</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node">Custodian</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node">CCP</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node">Settlement Agent</span>
+        </div>
+        <div class="outcome bad">T+2 delay · $5B+ annual fails cost · ~80% of ops is reconciliation</div>
+      </div>
+      <div class="problem-side">
+        <div class="problem-label good">ChainSettle — 1 shared ledger</div>
+        <div class="chain">
+          <span class="chain-node" style="border-color:var(--teal2);color:var(--teal);background:var(--teal-dim)">Trade submitted</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node" style="border-color:var(--teal2);color:var(--teal);background:var(--teal-dim)">Validated</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node" style="border-color:var(--teal2);color:var(--teal);background:var(--teal-dim)">Atomic DvP</span>
+          <span class="chain-arrow">→</span>
+          <span class="chain-node" style="border-color:var(--teal2);color:var(--teal);background:var(--teal-dim)">Finalized</span>
+        </div>
+        <div class="outcome good">T+0 · ~4 seconds · zero reconciliation · immutable audit trail</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-tag">The platform</div>
+    <h2 class="section-h">Four components.<br>One settlement layer.</h2>
+    <p class="section-sub">Each module replaces a distinct intermediary function. Together they form a complete, programmable settlement infrastructure.</p>
+
+    <div class="features-grid fade-up">
+      <div class="feature">
+        <div class="feature-num">01 / LEDGER</div>
+        <div class="feature-title">Shared settlement ledger</div>
+        <div class="feature-body">A permissioned blockchain where every participant sees the same single truth. Trade execution, ownership transfer, and finality recorded once — visible to all counterparties simultaneously.</div>
+        <div class="feature-detail">Hyperledger Besu · DAML · Canton Network compatible</div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">02 / CONTRACTS</div>
+        <div class="feature-title">Smart contract engine</div>
+        <div class="feature-body">Delivery-versus-payment executed atomically: either both legs settle or both revert. Margin calls, collateral release, accrued interest — fully automated, fully auditable. No phone calls.</div>
+        <div class="feature-detail">Solidity · Formal verification · Pre-flight KYC/AML validation</div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">03 / COLLATERAL</div>
+        <div class="feature-title">Real-time collateral engine</div>
+        <div class="feature-body">Tokenized T-bills, money market funds, and stablecoins locked and released automatically as positions move. Haircuts applied by smart contract. Live margin health for every counterparty.</div>
+        <div class="feature-detail">T-Bill · MMF · USDC / USDT · Auto-haircut · Real-time margining</div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">04 / COMPLIANCE</div>
+        <div class="feature-title">Compliance &amp; regulator layer</div>
+        <div class="feature-body">KYC and AML baked into the transaction layer, not bolted on. Every event is cryptographically signed and immutable. Regulators get a live, read-only audit view. 100% coverage, zero effort.</div>
+        <div class="feature-detail">SEC / FINRA read-only portal · Immutable on-chain audit log · KYC API</div>
+      </div>
+    </div>
+
+    <!-- ARCHITECTURE -->
+    <div style="margin-top:64px" class="fade-up">
+      <div class="section-tag">Architecture</div>
+      <h3 style="font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:8px;color:var(--text)">Permissioned. Privacy-first. Regulator-ready.</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:32px;max-width:480px">Built for institutional requirements — not public chain speculation. Every layer is auditable, upgradeable, and replaceable.</p>
+      <div class="arch-layers">
+        <div class="arch-layer l1">
+          <div class="arch-label">Presentation</div>
+          <div class="arch-bar">Institution Dashboard &nbsp;·&nbsp; Regulator Portal &nbsp;·&nbsp; REST / GraphQL API Gateway</div>
+        </div>
+        <div class="arch-layer l2">
+          <div class="arch-label">Application</div>
+          <div class="arch-bar">Settlement Engine &nbsp;·&nbsp; Collateral Engine &nbsp;·&nbsp; KYC/AML Compliance Service</div>
+        </div>
+        <div class="arch-layer l3">
+          <div class="arch-label">Smart Contracts</div>
+          <div class="arch-bar">DvP Contracts &nbsp;·&nbsp; Margin Logic &nbsp;·&nbsp; Collateral Release &nbsp;·&nbsp; Default Handling</div>
+          <div class="arch-tag">Solidity · DAML</div>
+        </div>
+        <div class="arch-layer l4">
+          <div class="arch-label">Blockchain</div>
+          <div class="arch-bar">Hyperledger Besu &nbsp;·&nbsp; Permissioned Validator Nodes &nbsp;·&nbsp; IBFT 2.0 Consensus</div>
+          <div class="arch-tag">12 nodes</div>
+        </div>
+        <div class="arch-layer l5">
+          <div class="arch-label">Data &amp; Identity</div>
+          <div class="arch-bar">PostgreSQL &nbsp;·&nbsp; KYC Registry &nbsp;·&nbsp; HSM Key Management &nbsp;·&nbsp; Immutable Audit Store</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:8px">
+        Stack: Python (Flask) · Solidity · Hyperledger Besu · PostgreSQL · Docker · AWS / GCP
+      </div>
+    </div>
+
+    <!-- ROADMAP -->
+    <div style="margin-top:80px" class="fade-up">
+      <div class="section-tag">Roadmap</div>
+      <h3 style="font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:8px;color:var(--text)">Full lifecycle disruption, one phase at a time.</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:32px;max-width:560px">Each phase eliminates another class of intermediary. Phase I is the wedge — the highest-volume, most pain-filled function in institutional markets.</p>
+      <div class="roadmap">
+        <div class="roadmap-phase active">
+          <div class="phase-num">Phase I</div>
+          <div class="phase-title">Settlement &amp; Collateral</div>
+          <div class="phase-desc">Eliminates clearinghouses, settlement agents, and reconciliation operations entirely.</div>
+          <div class="phase-badge">MVP NOW</div>
+        </div>
+        <div class="roadmap-phase">
+          <div class="phase-num">Phase II</div>
+          <div class="phase-title">Issuance &amp; Transfer Agency</div>
+          <div class="phase-desc">Eliminates transfer agents, DTCC bookentry, and IPO underwriter ledgers.</div>
+        </div>
+        <div class="roadmap-phase">
+          <div class="phase-num">Phase III</div>
+          <div class="phase-title">Corporate Actions</div>
+          <div class="phase-desc">Eliminates corporate action processors, proxy agents, and dividend administrators.</div>
+        </div>
+        <div class="roadmap-phase">
+          <div class="phase-num">Phase IV</div>
+          <div class="phase-title">Full Exchange &amp; Clearing</div>
+          <div class="phase-desc">Eliminates traditional exchanges, CCPs, and the market maker intermediation layer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIALS -->
+<section id="financials">
+  <div class="wrap">
+    <div class="section-tag">Financials</div>
+    <h2 class="section-h">Conservative projections.<br>Institutional unit economics.</h2>
+    <p class="section-sub">5 pilot institutions in Year 1, scaling to 50 by Year 3. EBITDA breakeven in Q3 Year 3.</p>
+    <div class="fin-wrap fade-up">
+      <div class="fin-table-wrap">
+        <table class="fin-table">
+          <thead>
+            <tr>
+              <th>USD Thousands</th>
+              <th>Year 1</th>
+              <th>Year 2</th>
+              <th>Year 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="head-row"><td colspan="4">Revenue</td></tr>
+            <tr><td>SaaS platform fees</td><td>$250</td><td>$2,000</td><td>$6,000</td></tr>
+            <tr><td>Transaction fees</td><td>$60</td><td>$800</td><td>$4,500</td></tr>
+            <tr><td>Premium modules</td><td>—</td><td>$400</td><td>$2,000</td></tr>
+            <tr class="total-row"><td>Total revenue</td><td class="pos">$310</td><td class="pos">$3,200</td><td class="pos">$12,500</td></tr>
+            <tr class="head-row"><td colspan="4">Operating Expenses</td></tr>
+            <tr><td>Engineering &amp; R&amp;D</td><td class="neg">($1,800)</td><td class="neg">($3,200)</td><td class="neg">($4,500)</td></tr>
+            <tr><td>Infrastructure / Audit</td><td class="neg">($825)</td><td class="neg">($900)</td><td class="neg">($1,500)</td></tr>
+            <tr><td>Legal &amp; Regulatory</td><td class="neg">($350)</td><td class="neg">($250)</td><td class="neg">($250)</td></tr>
+            <tr><td>Sales, Mktg &amp; G&amp;A</td><td class="neg">($275)</td><td class="neg">($1,150)</td><td class="neg">($2,700)</td></tr>
+            <tr class="total-row"><td>Total OpEx</td><td class="neg">($3,250)</td><td class="neg">($5,500)</td><td class="neg">($8,950)</td></tr>
+            <tr class="ebitda-row"><td>EBITDA</td><td class="neg">($2,940)</td><td class="neg">($2,300)</td><td class="pos">$3,550</td></tr>
+            <tr><td style="font-size:12px;color:var(--muted)">Cash (with seed raise)</td><td>$560</td><td>~$0</td><td class="pos">$3,550+</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:12px;line-height:1.6">
+          $200K ACV · $0.50/settlement · 10K → 100K → 500K monthly settlements · Series A at $10–15M in Year 2
+        </div>
+      </div>
+      <div class="fin-aside">
+        <div class="fin-card">
+          <div class="fin-card-label">Unit Economics</div>
+          <div class="fin-metric"><span class="fin-metric-label">ACV per institution</span><span class="fin-metric-val">$200K</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">Gross margin (Y3)</span><span class="fin-metric-val pos">&gt;80%</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">Net rev. retention</span><span class="fin-metric-val pos">115–125%</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">CAC payback</span><span class="fin-metric-val">~18 months</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">Annual churn target</span><span class="fin-metric-val">&lt;5%</span></div>
+        </div>
+        <div class="fin-card">
+          <div class="fin-card-label">Market Validation</div>
+          <div class="fin-metric"><span class="fin-metric-label">DTCC</span><span class="fin-metric-val" style="font-size:11px">Project Ion pilot</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">BlackRock</span><span class="fin-metric-val" style="font-size:11px">BUIDL tokenized fund</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">Broadridge</span><span class="fin-metric-val" style="font-size:11px">$1T+/day on DLR</span></div>
+          <div class="fin-metric"><span class="fin-metric-label">BNY Mellon</span><span class="fin-metric-val" style="font-size:11px">Digital custody live</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDING -->
+<section id="funding">
+  <div class="wrap">
+    <div class="section-tag">Funding</div>
+    <h2 class="section-h">Three milestone-gated rounds<br>to profitability.</h2>
+    <p class="section-sub">Each round unlocks when the prior milestone is delivered — not when a calendar date arrives.</p>
+    <div class="rounds-grid fade-up">
+      <div class="round-card now">
+        <div class="round-tag">Seed · Raising Now</div>
+        <div class="round-amount">$3.5M</div>
+        <div class="round-timing">Now → Month 12</div>
+        <ul class="round-list">
+          <li>Permissioned ledger, DvP contracts, collateral engine v1</li>
+          <li>Security audit &amp; KYC/AML compliance integration</li>
+          <li>5–10 institutional pilot partners onboarded</li>
+          <li>Regulator sandbox participation (FINRA / OCC)</li>
+        </ul>
+        <div class="round-unlock">→ Live pilot + regulator dashboard unlocks Series A</div>
+      </div>
+      <div class="round-card">
+        <div class="round-tag">Series A</div>
+        <div class="round-amount">$10–15M</div>
+        <div class="round-timing">Month 13 → 30</div>
+        <ul class="round-list">
+          <li>Scale to 50 institutional participants</li>
+          <li>Full sales &amp; marketing team</li>
+          <li>Phase II rollout: issuance &amp; transfer agency</li>
+          <li>Cross-border settlement expansion</li>
+        </ul>
+        <div class="round-unlock">→ 20 customers + $3M ARR unlocks Series B</div>
+      </div>
+      <div class="round-card">
+        <div class="round-tag">Series B</div>
+        <div class="round-amount">$30–50M</div>
+        <div class="round-timing">Month 30+</div>
+        <ul class="round-list">
+          <li>Phase III &amp; IV full rollout</li>
+          <li>Regulatory licensing (ATS / custodian)</li>
+          <li>International markets: EU, APAC</li>
+          <li>M&amp;A: compliance and analytics firms</li>
+        </ul>
+        <div class="round-unlock">→ Target exit: $100–125M at 8–10× ARR</div>
+      </div>
+    </div>
+
+    <!-- SEED USE OF FUNDS -->
+    <div style="margin-top:48px" class="fade-up">
+      <div style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:20px">Seed use of funds</div>
+      <div style="display:flex;gap:3px;height:8px;margin-bottom:16px">
+        <div style="flex:45;background:var(--teal)"></div>
+        <div style="flex:20;background:var(--teal2)"></div>
+        <div style="flex:15;background:#006050"></div>
+        <div style="flex:10;background:var(--gold)"></div>
+        <div style="flex:10;background:var(--muted)"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px">
+        <div><div style="width:10px;height:10px;background:var(--teal);border-radius:50%;margin-bottom:6px"></div><div style="font-size:12px;font-weight:500;color:var(--text)">$1.575M</div><div style="font-size:11px;color:var(--muted)">Engineering &amp; Infra (45%)</div></div>
+        <div><div style="width:10px;height:10px;background:var(--teal2);border-radius:50%;margin-bottom:6px"></div><div style="font-size:12px;font-weight:500;color:var(--text)">$700K</div><div style="font-size:11px;color:var(--muted)">Blockchain &amp; Contracts (20%)</div></div>
+        <div><div style="width:10px;height:10px;background:#006050;border-radius:50%;margin-bottom:6px"></div><div style="font-size:12px;font-weight:500;color:var(--text)">$525K</div><div style="font-size:11px;color:var(--muted)">Security &amp; Compliance (15%)</div></div>
+        <div><div style="width:10px;height:10px;background:var(--gold);border-radius:50%;margin-bottom:6px"></div><div style="font-size:12px;font-weight:500;color:var(--text)">$350K</div><div style="font-size:11px;color:var(--muted)">Regulatory &amp; Legal (10%)</div></div>
+        <div><div style="width:10px;height:10px;background:var(--muted);border-radius:50%;margin-bottom:6px"></div><div style="font-size:12px;font-weight:500;color:var(--text)">$350K</div><div style="font-size:11px;color:var(--muted)">Ops, G&amp;A &amp; Reserve (10%)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASK -->
+<section class="ask-section">
+  <div class="wrap">
+    <div class="section-tag">How you can help</div>
+    <h2 class="section-h">Four ways to move<br>this forward.</h2>
+    <p class="section-sub">We are looking for support across investors, institutional pilots, regulatory guidance, and strategic partnerships.</p>
+    <div class="ask-grid fade-up">
+      <div class="ask-card">
+        <div class="ask-card-label">Investor introductions</div>
+        <div class="ask-card-title">Fintech seed &amp; strategic CVCs</div>
+        <div class="ask-card-body">Warm introductions to fintech-focused seed funds, exchange or custodian corporate venture arms, and family offices with financial infrastructure theses. Target check: $250K–$1M per investor.</div>
+      </div>
+      <div class="ask-card">
+        <div class="ask-card-label">Pilot institutional partners</div>
+        <div class="ask-card-title">Broker-dealers, hedge funds, repo desks</div>
+        <div class="ask-card-body">We need 5–10 institutional participants for a paid proof-of-concept pilot using treasury-backed collateral in a controlled environment. Ideal candidates: mid-size broker-dealers, hedge fund prime desks, ATS operators, or repo market participants.</div>
+      </div>
+      <div class="ask-card">
+        <div class="ask-card-label">Regulatory guidance</div>
+        <div class="ask-card-title">SEC / FINRA tokenized securities counsel</div>
+        <div class="ask-card-body">Access to legal counsel with experience in tokenized securities and digital asset regulation. Introductions to FINRA, OCC, or SEC sandbox programs for early engagement and platform validation.</div>
+      </div>
+      <div class="ask-card">
+        <div class="ask-card-label">Strategic partnerships</div>
+        <div class="ask-card-title">Custodians, broker-dealers, cloud credits</div>
+        <div class="ask-card-body">Qualified custodians or registered broker-dealers willing to serve as regulated partners for Phase I compliance. AWS, GCP, or Azure infrastructure credits also welcome to extend runway.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
+    <p style="font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal2);margin-bottom:16px">Get in touch</p>
+    <h2 class="contact-h">Ready to build the<br><em style="color:var(--teal)">future of settlement?</em></h2>
+    <p class="contact-sub">Whether you're an investor, a potential pilot partner, a regulator, or just curious — we'd love to talk.</p>
+    <div class="contact-links">
+      <a class="contact-chip" href="mailto:hello@chainsettle.io">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1"/><polyline points="1,3 8,9 15,3"/></svg>
+        hello@chainsettle.io
+      </a>
+      <a class="contact-chip" href="https://github.com/chainsettle" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        github.com/chainsettle
+      </a>
+      <a class="contact-chip" href="https://linkedin.com/company/chainsettle" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <div style="margin-top:40px;padding-top:40px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:var(--mono)">
+      Confidential &amp; Proprietary · May 2026 · For discussion purposes only. Not an offer to sell securities.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div style="width:18px;height:18px;background:var(--teal);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center">
+          <svg width="9" height="9" viewBox="0 0 13 13" fill="#07101A"><polygon points="6.5,1 12,3.8 12,9.2 6.5,12 1,9.2 1,3.8"/></svg>
+        </div>
+        <span style="font-family:var(--mono);font-size:13px;color:var(--teal);font-weight:500;letter-spacing:1px">CHAINSETTLE</span>
+      </div>
+      <div>Decentralized Settlement &amp; Collateral Management Platform</div>
+    </div>
+    <div class="footer-right">Phase I MVP · Settlement &amp; Collateral Management · $3.5M Seed</div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
